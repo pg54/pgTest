@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #mainDiv {
+            width: 400px;
+            height: 400px;
+            margin: 300px auto;
+            perspective: 800px;
+        }
+        #boxDiv {
+            width: 400px;
+            transform-style: preserve-3d;
+            animation: rotate 15s linear infinite;
+        }
+        #boxDiv div {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+    
+        }
+        #front {
+            transform: translateZ(200px);
+            background: black;
+        }
+        #back {
+            transform: rotateY(180deg) translateZ(200px);
+            background: #101010
+        }
+        #left {
+            transform: rotateY(90deg) translateY(-200px);
+            background: red
+
+        }
+        #right {
+            transform: rotateY(-90deg) translateY(200px);
+            background: blue
+        }
+        #top {
+            transform: rotateY(-90deg) translateY(-200px);
+            background: yellow
+        }
+        #bottom {
+            transform: rotateY(90deg) translateY(200px);
+            background: pink
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div id="mainDiv">
+        <div id="boxDiv">
+            <div id="front"></div>
+            <div id="back"></div>
+            <div id="left"></div>
+            <div id="right"></div>
+            <div id="top"></div>
+            <div id="bottom"></div>
+        </div>
+    </div>
+    
+</body>
+</html>

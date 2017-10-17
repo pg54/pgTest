@@ -1,0 +1,121 @@
+<html >
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+<div style="float:left;width:600px">
+    <canvas id="c" width=600 height=640px style="border:1px solid grey;float:left"></canvas>
+</div>
+<div style="float:left;">
+    <form name='f'>
+        下限:<input name='min' onblur='draw()' value="0" />
+        上限:<input name='max' onblur='draw()' value="680" />
+        <input type="reset" onclick="draw()" value='刷新 ' />
+    </form>
+</div>
+<script>
+
+    function rand(min,max){
+        var range = max-min+1;
+        return Math.floor(Math.random() * range + min);
+    }
+
+    var myCanvas = document.getElementById("c");
+    var c = myCanvas.getContext("2d");
+    var w = 600;
+    var h = 600;
+    var head = 40;
+    var count = 80;
+
+    var categories = ['年龄（岁）','模仿','知觉','精细动作','粗大动作','手眼协调','认知表现','口语认知','总评分','年龄（岁）']
+
+    function draw() {
+        drawCategory()
+
+        c.beginPath()
+        c.moveTo(60, head);
+        c.lineTo(60, head + h);
+        c.strokeStyle  = '#000'
+        c.stroke()
+
+        drawBaseLine()
+        drawData()
+    }
+
+    function drawCategory() {
+        let tickSize = 60
+        let tickCnt = 10
+        for (var i = 0; i < tickCnt; i++) {
+            c.beginPath()
+            c.rect(tickSize * i, 0, 60 , 40)
+            c.strokeStyle  = '#000'
+            c.font = "10px serif";
+            c.textAlign = 'center';
+            c.fillText(categories[i],30 + tickSize * i ,20);
+            c.stroke()
+        }
+    }
+    
+    function drawGrap() {
+        let tickSize = 60
+        let tickCnt = 10
+        for (var i = 0; i < tickCnt; i++) {
+            if ( 1 < i < tickCnt) {
+                console.log('drawGrap')
+                c.beginPath()
+                c.moveTo(tickSize * i, head);
+                c.lineTo(tickSize * i, head + h);
+                c.strokeStyle  = '#000'
+                c.stroke()
+            }
+        }
+    }
+
+    function drawBaseLine() {
+        c.clearRect(0, 40, w, h);
+        var max = parseInt(document.f.max.value);
+        var min = parseInt(document.f.min.value);
+
+        var tickSize =  h / count
+
+        c.moveTo(0,  head);
+        c.lineTo(0,  head + h);
+
+        for (var i = 1; i < count; i++) {
+            c.beginPath()
+            c.moveTo(0,40 + tickSize * i);
+            c.lineTo(w,40 + tickSize * i);
+            c.strokeStyle  = '#efefef'
+            c.stroke();
+        }
+
+    }
+    function drawData() {
+        //年龄（岁）
+        let tickSize = 60
+        for (var i = 1; i < 7; i++) {
+            c.beginPath()
+            c.moveTo(tickSize*0 + 0,40 +(count-12*i)/count*h);
+            c.lineTo(tickSize*0 +15,40 +(count-12*i)/count*h);
+            c.strokeStyle  = '#000'
+            c.textAlign = 'center';
+            c.fillText(i,20 ,45 + (count-12*i)/count*h);
+            c.stroke();
+        }
+
+        //模仿
+        var arr2 = [19,21,24,,26,29,31,33,36,38,52]
+        for (var i = 0; i < 11; i++) {
+            c.beginPath()
+            c.moveTo(tickSize*1 + 0,40 + (count - arr2[i])/count*h);
+            c.lineTo(tickSize*1 + 15,40 +(count - arr2[i])/count*h);
+            c.strokeStyle  = '#000'
+            c.textAlign = 'center';
+            c.fillText(i,60 + 20 ,45 + (count-arr2[i])/count*h);
+            c.stroke();
+        }
+
+    }
+</script>
+
+</html>
